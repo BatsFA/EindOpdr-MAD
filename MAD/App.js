@@ -9,26 +9,23 @@ export default function App() {
 
     // Main Body section
     <View style={styles.body}>
-
-      {/* Header Content section */}
-      <View style={styles.header}>
-
-        {/* Image for header logo */}
-        <Image 
+      {/* HEADER */}
+      <View style={styles.header}>{/* dit is de complete header, en hierbinnen staan het logo en andere onderdelen. */}
+        <Image
           style={styles.logo}
-          source={require('./assets/Energie4You_logo.png')}></Image>
+          source={require('./assets/Energie4You_logo.png')}>{/* dit is de plek voor het logo boven in het scherm. */}
+        </Image>
       </View>
 
-      {/* Main Content section */}
-      <View style={styles.main}>
-        <View style={styles.melding}>
+      {/* MAIN */}
+      <View style={styles.main}>{/* dit is voor de achtergrond en eventuele achtergrond effecten.*/}
+        <View style={styles.melding}>{/* dit is voor de daadwerkelijke melding zelf. */}
           
         </View>
       </View>
     </View>
   );
 }
-
 // Styling
 const styles = StyleSheet.create({
 
