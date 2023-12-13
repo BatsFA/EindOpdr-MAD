@@ -3,41 +3,34 @@ import { React, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.header}>
-      <View style={styles.container}>
+    <View style={styles.body}>
+      {/* <StatusBar style={styles.statusbar} /> */}
+      <View style={styles.header}>
         <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
       </View>
-      <View style={styles.container}>
+      <View style={styles.meldingen}>
         <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
       </View>
-      <View style={styles.container}>
+      <View style={styles.melding}>
         <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
       </View>
-      <View style={styles.container}>
+      <View style={styles.addnew}>
         <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View>
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
   header: {
     flex: 1,
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    maxHeight: 20,
     backgroundColor: '#ff0000',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    maxHeight: 50,
   },
 });
