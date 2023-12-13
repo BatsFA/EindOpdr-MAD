@@ -3,12 +3,24 @@ import { React, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container1}>
-      <View style={styles.container2}>
+    <View style={styles.header}>
+      <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
         <StatusBar style="auto" />
       </View>
-      <View style={styles.container2}>
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <StatusBar style="auto" />
+      </View>
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <StatusBar style="auto" />
+      </View>
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <StatusBar style="auto" />
+      </View>
+      <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
         <StatusBar style="auto" />
       </View>
@@ -17,13 +29,14 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container1: {
+  header: {
     flex: 1,
     justifyContent: 'center',
   },
-  container2: {
+  container: {
     flex: 1,
-    backgroundColor: '#fff',
+    maxHeight: 20,
+    backgroundColor: '#ff0000',
     alignItems: 'center',
     justifyContent: 'center',
   },
