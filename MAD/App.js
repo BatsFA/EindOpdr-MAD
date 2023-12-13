@@ -6,6 +6,9 @@ export default function App() {
     <View style={styles.body}>
       {/* <StatusBar style={styles.statusbar} /> */}
       <View style={styles.header}>
+        <Image 
+          style={styles.logo}
+          source={require('./assets/Energie4You_logo.png"')}></Image>
         <Text>Open up App.js to start working on your app!</Text>
       </View>
       <View style={styles.meldingen}>
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ff0000',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     maxHeight: 50,
   },
 });
