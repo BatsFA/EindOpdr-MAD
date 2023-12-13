@@ -3,39 +3,28 @@ import { React, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.mainscreen}>
-      <View style={styles.header}>
-      <StatusBar style={styles.header}/>
+    <View style={styles.container1}>
+      <View style={styles.container2}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <StatusBar style="auto" />
       </View>
-      <Pressable style={styles.btnmelding}>
-        <Text style={styles.btnmeldingtxt}>+</Text>
-      </Pressable>
+      <View style={styles.container2}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <StatusBar style="auto" />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    alignContent: 'center',
+  container1: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  mainscreen: {
-    display: 'flex',
-    flexDirection: 'collumn',
-    alignContent: 'center',
-  },
-  btnmelding: {
-    maxWidth: '50%',
+  container2: {
+    flex: 1,
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ff0000',
-    borderRadius: 4.0,
-  },
-  bntmeldingtxt: {
-    alignContent: 'center',
-    fontSize: '20',
-    lineHeight: '21',
-    fontWeight: 'bold',
-    letterSpacing: '0.25',
-    color: '#fff',
   },
 });
