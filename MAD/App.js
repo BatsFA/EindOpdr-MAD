@@ -1,7 +1,6 @@
 // Import of part from react
-import React, {useState, useEffect} from 'react';
-import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, Text, View, Pressable, Image, AppRegistry, timesPressed, textLog, Button, TextInput} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 // Main Code
