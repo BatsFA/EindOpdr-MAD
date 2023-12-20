@@ -49,23 +49,25 @@ export default function App() {
       <View style={styles.main}>{/* dit is voor de achtergrond en eventuele achtergrond effecten.*/}
 
         {/* INVUL FORM */}
+        {/*  */}
         <View style={styles.meldform}>
           <Text style={styles.txtform} > Melding maken </Text>
           <View style={styles.invulform}>
             <TextInput style={styles.nameform} placeholder="Soort Melding"/>
-            <TextInput style={styles.nameform} placeholder="Naam"/>
-            <TextInput style={styles.emailform} placeholder="Email"/>
+            <TextInput style={styles.locationform} placeholder="Locatie"/>
+            <TextInput style={styles.nameform} placeholder="Naam Monteur"/>
             <TextInput style={styles.infoform} placeholder="Extra Informatie"/>
           </View>
         </View>
 
         {/* IMAGE PICKER FORM */}
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Button title="Pick an image from camera roll" onPress={pickImage} />
-          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+          <Button style={styles.selectimage} title="Selecteer Foto" onPress={pickImage} />
+          {image && <Image source={{ uri: image }} style={styles.imageplacement} 
+          />}
         </View>
 
-        {/* MELD KNOP */}
+        {/* MELD/CONFIRM KNOP */}
         <View style={styles.melding}>{/* dit is voor de daadwerkelijke melding zelf. */}
           <Pressable onPress={() => 
           {setTimesPressed(current => current + 1)}} 
