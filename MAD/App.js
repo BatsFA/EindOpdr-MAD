@@ -54,7 +54,7 @@ export default function App() {
   };
   return (
     <KeyboardAvoidingView 
-      behavior='padding'
+      
       style={styles.body}>
       {/* HEADER */}
       <View style={styles.header}>{/* dit is de complete header, en hierbinnen staan het logo en andere onderdelen. */}
@@ -63,7 +63,6 @@ export default function App() {
           source={require('./assets/Energie4You_logo.png')}>{/* dit is de plek voor het logo boven in het scherm. */}
         </Image>
       </View>
-
       {/* MAIN */}
       <View style={styles.main}>{/* dit is voor de achtergrond en eventuele achtergrond effecten.*/}
 
@@ -71,7 +70,7 @@ export default function App() {
         {/* Form for filling in and sending notifications. */}
         <View style={styles.invulform}>
           {/* FORM TITLE */}
-          <Text style={styles.txtform} > Melding maken </Text>
+          
 
           {/* INPUTFIELDS */}
           {/* this is where you put i all the required information. */}
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
     paddingTop: 20,
-    maxHeight: '15%',
+    maxHeight: '17%',
     backgroundColor: '#40ff00',
   },
 
@@ -139,11 +138,19 @@ const styles = StyleSheet.create({
   },
 
   // Styling meldingform and submit btn
+  txtform: {
+    paddingBottom: 20,
+    textAlign: 'center',
+    fontSize: 40,
+    backgroundColor: '#40ef00',
+  },
   invulform: {
-    padding: 20,
+    flex: 1,
+    paddingHorizontal: 40,
+    paddingVertical: 10,
     backgroundColor: '#40ef00',
     borderRadius: 10,
-    shadowColor: '#000000',
+    shadowColor: '#40ff00',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -151,23 +158,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    zIndex: 0
   },
   formlabel: {
     marginBottom: 5,
-    fontSize: 16,
+    paddingLeft: 10,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   forminput: {
-    marginBottom: 15,
+    marginBottom: 30,
     padding: 10,
     height: 40,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 5,
-    borderColor: '#000000'
+    borderColor: '#40bf00',
+    fontSize: 15,
   },
   errortxt: {
     color: 'red',
     marginBottom: 10,
+  },
+  imageselect: {
+    marginBottom: 40,
   },
 
 });
