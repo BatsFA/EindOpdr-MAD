@@ -1,5 +1,5 @@
 // Import of part from react
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Pressable, Image, AppRegistry, timesPressed, textLog, Button, TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -26,7 +26,7 @@ export default function App() {
       setImage(result.assets[0].uri);
     }
     // BTN CONST.
-  const [timesPressed, setTimesPressed] = useState(0);
+  const [timesPressed, setTimesPressed] = useState(null);
     let textLog = '';
     if (timesPressed > 1) {
       textLog = timesPressed + 'x onPress';
