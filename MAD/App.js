@@ -1,7 +1,7 @@
 // Import of part from react
-import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Pressable, Image, AppRegistry, timesPressed, textLog, Button, TextInput } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet, Text, View, Pressable, Image, AppRegistry, timesPressed, textLog, Button, TextInput} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 // Main Code
@@ -67,18 +67,21 @@ export default function App() {
           />}
         </View>
 
-        {/* MELD/CONFIRM KNOP */}
-        <View style={styles.melding}>{/* dit is voor de daadwerkelijke melding zelf. */}
-          <Pressable onPress={() => 
-          {setTimesPressed(current => current + 1)}} 
-          style={({pressed}) => [{ backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'}, styles.wrapperCustom ]}>
-          {({pressed}) => (
-            <Text style={styles.text}>{pressed ? 'verzonden' : 'Melden'}</Text>
-         )}
-         </Pressable>
-         <View style={styles.logBox}>
-           <Text testID="pressable_press_console">{textLog}</Text>
-         </View>
+        {/* CONFIRM BTN */}
+        {/* This is the btn to confirm and send a notification from the user to the homepage. */}
+        <View style={styles.confirmsection}>
+
+          {/* Btn itself witht the pressable btn and a confirmationtxt after sending. */}
+          <Pressable onPress={() =>
+            {setTimesPressed(current => current + 1)}} 
+              style={({pressed}) => [{ backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'}, styles.confirmbtn ]}>
+            {({pressed}) => (
+              <Text style={styles.confirmtxt}>{pressed ? 'verzonden' : 'Melden'}</Text>
+            )}
+          </Pressable>
+          <View style={styles.logBoxconfirmbtn}>
+            <Text testID="pressable_press_console">{textLog}</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -87,7 +90,7 @@ export default function App() {
 // Styling
 const styles = StyleSheet.create({
 
-  // Styling for main body
+  // Styling for total body
   body: {
     flex: 1,
     justifyContent: 'flex-start',
@@ -101,25 +104,32 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     maxHeight: '11%',
   },
-  logo: {
-    resizeMode: 'contain',
-    maxWidth: '30%',
-  },
 
   // Main content styling
   main: {
     flex: 1,
     backgroundColor: '#40ef00',
   },
-  text: {
-    
-    fontSize: 16,
+
+  // styling logo within header
+  logo: {
+    resizeMode: 'contain',
+    maxWidth: '30%',
   },
-  wrapperCustom: {
-    borderRadius: 8,
+
+  // confirmationbtn itself
+  confirmbtn: {
+    borderRadius: 10,
     padding: 6,
   },
-  logBox: {
+
+  // confirmationtxt after sending notification
+  confirmtxt: {
+    fontSize: 16,
+  },
+
+  // txtlog for the notification
+  logBoxconfirmbtn: {
     padding: 20,
     margin: 10,
     borderWidth: StyleSheet.hairlineWidth,
