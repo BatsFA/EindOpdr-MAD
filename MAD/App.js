@@ -1,15 +1,13 @@
 // Import of part from react
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 // Main Code
 // Content section
 export default function App() {
-  const [currency, setCurrency] = useState('US Dollar');
-  const [image, setImage] = useState(null);
-
   // IMAGE CONST.
+  const [image, setImage] = useState(null);
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -24,18 +22,29 @@ export default function App() {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
-    // BTN CONST.
-  const [timesPressed, setTimesPressed] = useState(null);
-    let textLog = '';
-    if (timesPressed > 1) {
-      textLog = timesPressed + 'x onPress';
-    } else if (timesPressed > 0) {
-      textLog = 'onPress';
-    }
   }
+  const [meldingsoort, setMeldingsoort] = useState('');
+  const [location, setLocation] = useState('');
+  const [name, setName] = useState('');
+  const [extrainfo, setExtrainfo] = useState('');
+
+  const [errors, setErrors] = useState({});
+  const formvalidation = () => {
+    let errors = {}
+
+    if (!meldingsoort) errors.meldingsoort = 'Soort melding niet ingevuld';
+    if (!location) errors.location = 'locatie niet ingevuld';
+    if (!name) errors.name = 'naam niet ingevuld';
+    if (!extrainfo) errors.extrainfo = 'Soort melding niet ingevuld';
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   
   return (
-    <View style={styles.body}>
+    <KeyboardAvoidingView 
+      behavior='padding'
+      keyboardVerticalOffset={100}
+      style={styles.body}>
       {/* HEADER */}
       <View style={styles.header}>{/* dit is de complete header, en hierbinnen staan het logo en andere onderdelen. */}
         <Image
@@ -47,43 +56,44 @@ export default function App() {
       {/* MAIN */}
       <View style={styles.main}>{/* dit is voor de achtergrond en eventuele achtergrond effecten.*/}
 
-        {/* INVUL FORM */}
-        {/*  */}
-        <View style={styles.meldform}>
+        {/* MELDING FORM */}
+        {/* Form for filling in and sending notifications. */}
+        <View style={styles.invulform}>
+          {/* FORM TITLE */}
           <Text style={styles.txtform} > Melding maken </Text>
-          <View style={styles.invulform}>
-            <TextInput style={styles.nameform} placeholder="Soort Melding"/>
-            <TextInput style={styles.locationform} placeholder="Locatie"/>
-            <TextInput style={styles.nameform} placeholder="Naam Monteur"/>
-            <TextInput style={styles.infoform} placeholder="Extra Informatie"/>
+
+          {/* INPUTFIELDS */}
+          {/* this is where you put i all the required information. */}
+          <Text style={styles.formlabel}>Soort Melding</Text>
+          <TextInput style={styles.forminput} placeholder="..." value={meldingsoort} onChangeText={setMeldingsoort}/>
+          {errors.meldingsoort ? <Text style={styles.errortxt}>{errors.meldingsoort}</Text> : null}
+
+          <Text style={styles.formlabel}>Locatie</Text>
+          <TextInput style={styles.forminput} placeholder="..." value={location}onChangeText={setLocation}/>
+          {errors.location ? <Text style={styles.errortxt}>{errors.location}</Text> : null}
+
+          <Text style={styles.formlabel}>Naam Monteur</Text>
+          <TextInput style={styles.forminput} placeholder="..." value={name} onChangeText={setName}/>
+          {errors.name ? <Text style={styles.errortxt}>{errors.name}</Text> : null}
+          
+          <Text style={styles.formlabel}>Extra Informatie</Text>
+          <TextInput style={styles.forminput} placeholder="..." value={extrainfo} onChangeText={setExtrainfo}/>
+          {errors.extrainfo ? <Text style={styles.errortxt}>{errors.extrainfo}</Text> : null}
+
+          {/* IMAGE PICKER FORM */}
+          <View style={styles.imageselect}>
+            <Button title='Selecteer foto' onPress={pickImage} />
+              {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
           </View>
-        </View>
 
-        {/* IMAGE PICKER FORM */}
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Button style={styles.selectimage} title="Selecteer Foto" onPress={pickImage} />
-          {image && <Image source={{ uri: image }} style={styles.imageplacement} 
-          />}
-        </View>
+          {/* CONFIRM BTN */}
+          {/* This is the btn to confirm and send a notification from the user to the homepage. */}
+          <Button title='Melden' onPress={() => {}}>
 
-        {/* CONFIRM BTN */}
-        {/* This is the btn to confirm and send a notification from the user to the homepage. */}
-        <View style={styles.confirmsection}>
-
-          {/* Btn itself witht the pressable btn and a confirmationtxt after sending. */}
-          <Pressable onPress={() =>
-            {setTimesPressed(current => current + 1)}} 
-              style={({pressed}) => [{ backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'}, styles.confirmbtn ]}>
-            {({pressed}) => (
-              <Text style={styles.confirmtxt}>{pressed ? 'verzonden' : 'Melden'}</Text>
-            )}
-          </Pressable>
-          <View style={styles.logBoxconfirmbtn}>
-            <Text testID="pressable_press_console">{textLog}</Text>
-          </View>
+          </Button>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 // Styling
@@ -92,16 +102,19 @@ const styles = StyleSheet.create({
   // Styling for total body
   body: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: '#40ff00',
   },
 
   // Header styling, like bg and logo
   header: {
     flex: 1,
-    backgroundColor: '#40ff00',
     alignItems: 'center',
     justifyContent: 'center',
-    maxHeight: '11%',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    maxHeight: '15%',
+    backgroundColor: '#40ff00',
   },
 
   // Main content styling
@@ -116,23 +129,32 @@ const styles = StyleSheet.create({
     maxWidth: '30%',
   },
 
-  // confirmationbtn itself
-  confirmbtn: {
-    borderRadius: 10,
-    padding: 6,
-  },
-
-  // confirmationtxt after sending notification
-  confirmtxt: {
-    fontSize: 16,
-  },
-
-  // txtlog for the notification
-  logBoxconfirmbtn: {
+  // Styling meldingform and submit btn
+  invulform: {
     padding: 20,
-    margin: 10,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#f0f0f0',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#40ef00',
+    borderRadius: 10,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
+  formlabel: {
+    marginBottom: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  forminput: {
+    marginBottom: 15,
+    padding: 10,
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#000000'
+  }
+
 });
