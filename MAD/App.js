@@ -1,13 +1,41 @@
 // Import of part from react
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { React, StyleSheet, Text, View, Pressable, Image, AppRegistry } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, AppRegistry, timesPressed, textLog, Button, TextInput } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
 // Main Code
 // Content section
 export default function App() {
-  return (
+  const [currency, setCurrency] = useState('US Dollar');
+  const [image, setImage] = useState(null);
 
-    // Main Body section
+  // IMAGE CONST.
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+    // BTN CONST.
+  const [timesPressed, setTimesPressed] = useState(0);
+    let textLog = '';
+    if (timesPressed > 1) {
+      textLog = timesPressed + 'x onPress';
+    } else if (timesPressed > 0) {
+      textLog = 'onPress';
+    }
+  }
+  
+  return (
     <View style={styles.body}>
       {/* HEADER */}
       <View style={styles.header}>{/* dit is de complete header, en hierbinnen staan het logo en andere onderdelen. */}
@@ -19,8 +47,36 @@ export default function App() {
 
       {/* MAIN */}
       <View style={styles.main}>{/* dit is voor de achtergrond en eventuele achtergrond effecten.*/}
+
+        {/* INVUL FORM */}
+        <View style={styles.meldform}>
+          <Text style={styles.txtform} > Melding maken </Text>
+          <View style={styles.invulform}>
+            <TextInput style={styles.nameform} placeholder="Soort Melding"/>
+            <TextInput style={styles.nameform} placeholder="Naam"/>
+            <TextInput style={styles.emailform} placeholder="Email"/>
+            <TextInput style={styles.infoform} placeholder="Extra Informatie"/>
+          </View>
+        </View>
+
+        {/* IMAGE PICKER FORM */}
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Button title="Pick an image from camera roll" onPress={pickImage} />
+          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+        </View>
+
+        {/* MELD KNOP */}
         <View style={styles.melding}>{/* dit is voor de daadwerkelijke melding zelf. */}
-          
+          <Pressable onPress={() => 
+          {setTimesPressed(current => current + 1)}} 
+          style={({pressed}) => [{ backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'}, styles.wrapperCustom ]}>
+          {({pressed}) => (
+            <Text style={styles.text}>{pressed ? 'verzonden' : 'Melden'}</Text>
+         )}
+         </Pressable>
+         <View style={styles.logBox}>
+           <Text testID="pressable_press_console">{textLog}</Text>
+         </View>
         </View>
       </View>
     </View>
@@ -52,5 +108,20 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: '#40ef00',
+  },
+  text: {
+    
+    fontSize: 16,
+  },
+  wrapperCustom: {
+    borderRadius: 8,
+    padding: 6,
+  },
+  logBox: {
+    padding: 20,
+    margin: 10,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#f0f0f0',
+    backgroundColor: '#f9f9f9',
   },
 });
