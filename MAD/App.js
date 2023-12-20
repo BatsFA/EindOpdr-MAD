@@ -1,6 +1,6 @@
 // Import of part from react
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
+import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput, KeyboardAvoidingView, Platform, Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 // Main Code
@@ -30,7 +30,7 @@ export default function App() {
 
   const [errors, setErrors] = useState({});
   const formvalidation = () => {
-    let errors = {}
+    let errors = {};
 
     if (!meldingsoort) errors.meldingsoort = 'Soort melding niet ingevuld';
     if (!location) errors.location = 'locatie niet ingevuld';
@@ -39,11 +39,22 @@ export default function App() {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  
+  const submithandling = () => {
+    if(formvalidation()) {
+      Alert.alert('Verzonden', 'Bedankt voor het melden', [
+        {text: 'Cancel',onPress: () => console.log('Cancel Pressed'),style: 'cancel',},
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
+      setMeldingsoort('');
+      setLocation('');
+      setName('');
+      setExtrainfo('');
+      setErrors({});
+    };
+  };
   return (
     <KeyboardAvoidingView 
       behavior='padding'
-      keyboardVerticalOffset={100}
       style={styles.body}>
       {/* HEADER */}
       <View style={styles.header}>{/* dit is de complete header, en hierbinnen staan het logo en andere onderdelen. */}
@@ -75,7 +86,7 @@ export default function App() {
           <Text style={styles.formlabel}>Naam Monteur</Text>
           <TextInput style={styles.forminput} placeholder="..." value={name} onChangeText={setName}/>
           {errors.name ? <Text style={styles.errortxt}>{errors.name}</Text> : null}
-          
+
           <Text style={styles.formlabel}>Extra Informatie</Text>
           <TextInput style={styles.forminput} placeholder="..." value={extrainfo} onChangeText={setExtrainfo}/>
           {errors.extrainfo ? <Text style={styles.errortxt}>{errors.extrainfo}</Text> : null}
@@ -88,9 +99,7 @@ export default function App() {
 
           {/* CONFIRM BTN */}
           {/* This is the btn to confirm and send a notification from the user to the homepage. */}
-          <Button title='Melden' onPress={() => {}}>
-
-          </Button>
+          <Button title='Melden' onPress={submithandling}/>
         </View>
       </View>
     </KeyboardAvoidingView>
@@ -155,6 +164,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#000000'
-  }
+  },
+  errortxt: {
+    color: 'red',
+    marginBottom: 10,
+  },
 
 });
