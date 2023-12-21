@@ -92,13 +92,20 @@ export default function App() {
 
           {/* IMAGE PICKER FORM */}
           <View style={styles.imageselect}>
-            <Button title='Selecteer foto' onPress={pickImage} />
-              {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            <Button 
+            title='Selecteer foto'
+            color='#000000'
+            onPress={pickImage} />
+              {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
           </View>
 
           {/* CONFIRM BTN */}
           {/* This is the btn to confirm and send a notification from the user to the homepage. */}
-          <Button title='Melden' onPress={submithandling}/>
+          <View style={styles.melden}>
+            <Pressable style={styles.meldknop} onPress={submithandling}>
+              <Text style={styles.meldknoptxt}>Melden</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </KeyboardAvoidingView>
@@ -137,7 +144,7 @@ const styles = StyleSheet.create({
     maxWidth: '30%',
   },
 
-  // Styling meldingform and submit btn
+  // Styling meldingform
   txtform: {
     paddingBottom: 20,
     textAlign: 'center',
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
   },
   invulform: {
     flex: 1,
+    maxWidth: '100%',
     paddingHorizontal: 40,
     paddingVertical: 10,
     backgroundColor: '#40ef00',
@@ -161,13 +169,14 @@ const styles = StyleSheet.create({
     zIndex: 0
   },
   formlabel: {
+    marginTop: 20,
     marginBottom: 5,
     paddingLeft: 10,
     fontSize: 25,
     fontWeight: 'bold',
   },
   forminput: {
-    marginBottom: 30,
+    marginTop: 10,
     padding: 10,
     height: 40,
     borderWidth: 2,
@@ -180,7 +189,31 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   imageselect: {
-    marginBottom: 40,
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  melden: {
+    flex: 1,
+    maxWidth: '100%',
+    alignItems: 'center',
+  },
+  meldknop: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#000000',
+  },
+  meldknoptxt: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: '#ffffff',
   },
 
 });
