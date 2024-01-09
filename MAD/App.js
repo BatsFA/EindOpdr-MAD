@@ -27,24 +27,22 @@ export default function App() {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
-  }
+  };
   const [meldingsoort, setMeldingsoort] = useState('');
   const [location, setLocation] = useState('');
   const [name, setName] = useState('');
   const [extrainfo, setExtrainfo] = useState('');
-
   const [errors, setErrors] = useState({});
   const formvalidation = () => {
     let errors = {};
 
-    if (!meldingsoort) errors.meldingsoort = 'Soort melding niet ingevuld';
     if (!location) errors.location = 'locatie niet ingevuld';
     if (!name) errors.name = 'naam niet ingevuld';
     if (!image) errors.image = 'Afbeelding niet geselecteerd.'
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  const submithandling = () => {
+  const submitHandling = () => {
     if(formvalidation()) {
       Alert.alert('Verzonden', 'Bedankt voor het melden', [
         {text: 'Cancel',onPress: () => console.log('Cancel Pressed'),style: 'cancel',},
@@ -78,9 +76,9 @@ export default function App() {
           
 
           {/* INPUTFIELDS */}
-          {/* this is where you put i all the required information. */}
+          {/* Input voor alle nodige informatie */}
           <Text style={styles.formlabel}>Soort Melding</Text>
-          <View style={styles.menuinput}>
+          <View style={styles.menuinput} value={location}onChangeText={setLocation}>
             <Picker
               style={styles.iteminput}
               selectedValue={soort}
@@ -91,6 +89,7 @@ export default function App() {
               <Picker.Item label="Schakelkasten" value="schakelkasten" />
             </Picker>
           </View>
+          {/* {errors.meldingsoort ? <Text style={styles.errortxt}>{errors.meldingsoort}</Text> : null} */}
 
           <Text style={styles.formlabel}>Locatie</Text>
           <TextInput style={styles.forminput} placeholder="..." value={location}onChangeText={setLocation}/>
@@ -111,15 +110,15 @@ export default function App() {
             color='#40ab00'
             onPress={pickImage} />
               {image && <Image source={{ uri: image }} 
-              style={{ width: 140, height: 140, marginTop: 15, padding: 5, borderWidth: 2, borderWidth: 2,
+              style={{ width: 200, height: 140, marginTop: 15, padding: 5, borderWidth: 2, borderWidth: 2,
                 borderRadius: 5, borderColor: '#40bf00', }} />}
-                
+            {errors.image ? <Text style={styles.errortxt}>{errors.image}</Text> : null}
           </View>
 
           {/* CONFIRM BTN */}
           {/* This is the btn to confirm and send a notification from the user to the homepage. */}
           <View style={styles.melden}>
-            <Pressable style={styles.meldknop} onPress={submithandling}>
+            <Pressable style={styles.meldknop} onPress={submitHandling}>
               <Text style={styles.meldknoptxt}>Melden</Text>
             </Pressable>
           </View>
@@ -187,7 +186,6 @@ const styles = StyleSheet.create({
   },
   formlabel: {
     marginTop: 20,
-    marginBottom: 3,
     paddingLeft: 10,
     fontSize: 20,
     fontWeight: 'bold',
@@ -208,7 +206,6 @@ const styles = StyleSheet.create({
   },
   errortxt: {
     color: 'red',
-    marginBottom: 10,
   },
   imageselect: {
     flex: 1,
@@ -220,7 +217,7 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   meldknop: {
     alignItems: 'center',
