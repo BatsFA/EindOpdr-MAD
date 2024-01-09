@@ -2,10 +2,15 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput, KeyboardAvoidingView, Platform, Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { Picker } from '@react-native-picker/picker';
 
 // Main Code
 // Content section
 export default function App() {
+  // Melding Soort Select
+  const [soort, setSoort] = useState();
+  const handleValueChange=(itemValue, itemIndex) => setSoort(itemValue);
+
   // IMAGE CONST.
   const [image, setImage] = useState(null);
   const pickImage = async () => {
@@ -35,7 +40,7 @@ export default function App() {
     if (!meldingsoort) errors.meldingsoort = 'Soort melding niet ingevuld';
     if (!location) errors.location = 'locatie niet ingevuld';
     if (!name) errors.name = 'naam niet ingevuld';
-    if (!extrainfo) errors.extrainfo = 'Soort melding niet ingevuld';
+    if (!image) errors.image = 'Afbeelding niet geselecteerd.'
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -48,7 +53,7 @@ export default function App() {
       setMeldingsoort('');
       setLocation('');
       setName('');
-      setExtrainfo('');
+      setImage('');
       setErrors({});
     };
   };
@@ -75,8 +80,17 @@ export default function App() {
           {/* INPUTFIELDS */}
           {/* this is where you put i all the required information. */}
           <Text style={styles.formlabel}>Soort Melding</Text>
-          <TextInput style={styles.forminput} placeholder="..." value={meldingsoort} onChangeText={setMeldingsoort}/>
-          {errors.meldingsoort ? <Text style={styles.errortxt}>{errors.meldingsoort}</Text> : null}
+          <View style={styles.menuinput}>
+            <Picker
+              style={styles.iteminput}
+              selectedValue={soort}
+              onValueChange={handleValueChange}>
+              <Picker.Item label="Grondkabels" value="grondkabels" />
+              <Picker.Item label="Hoogspanningsmasten" value="hoogspanningsmasten" />
+              <Picker.Item label="Luchtkabels" value="luchtkabels" />
+              <Picker.Item label="Schakelkasten" value="schakelkasten" />
+            </Picker>
+          </View>
 
           <Text style={styles.formlabel}>Locatie</Text>
           <TextInput style={styles.forminput} placeholder="..." value={location}onChangeText={setLocation}/>
@@ -94,9 +108,12 @@ export default function App() {
           <View style={styles.imageselect}>
             <Button 
             title='Selecteer foto'
-            color='#000000'
+            color='#40ab00'
             onPress={pickImage} />
-              {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
+              {image && <Image source={{ uri: image }} 
+              style={{ width: 140, height: 140, marginTop: 15, padding: 5, borderWidth: 2, borderWidth: 2,
+                borderRadius: 5, borderColor: '#40bf00', }} />}
+                
           </View>
 
           {/* CONFIRM BTN */}
@@ -170,19 +187,24 @@ const styles = StyleSheet.create({
   },
   formlabel: {
     marginTop: 20,
-    marginBottom: 5,
+    marginBottom: 3,
     paddingLeft: 10,
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   forminput: {
-    marginTop: 10,
+    marginTop: 5,
     padding: 10,
     height: 40,
     borderWidth: 2,
     borderRadius: 5,
     borderColor: '#40bf00',
     fontSize: 15,
+  },
+  menuinput: {
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: '#40bf00',
   },
   errortxt: {
     color: 'red',
@@ -198,13 +220,15 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: '100%',
     alignItems: 'center',
+    justifyContent: 'flex-end'
   },
   meldknop: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20,
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 3,
     backgroundColor: '#000000',
   },
