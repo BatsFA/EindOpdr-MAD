@@ -2,7 +2,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput, KeyboardAvoidingView, Platform, Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as Location from 'expo-location';
 
 // Main Code
 // Content section
@@ -25,8 +24,10 @@ export default function App() {
     }
   }
   const [meldingsoort, setMeldingsoort] = useState('');
+  const [location, setLocation] = useState('');
   const [name, setName] = useState('');
   const [extrainfo, setExtrainfo] = useState('');
+
   const [errors, setErrors] = useState({});
   const formvalidation = () => {
     let errors = {};
@@ -34,6 +35,7 @@ export default function App() {
     if (!meldingsoort) errors.meldingsoort = 'Soort melding niet ingevuld';
     if (!location) errors.location = 'locatie niet ingevuld';
     if (!name) errors.name = 'naam niet ingevuld';
+    if (!extrainfo) errors.extrainfo = 'Soort melding niet ingevuld';
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -94,7 +96,7 @@ export default function App() {
             title='Selecteer foto'
             color='#000000'
             onPress={pickImage} />
-              {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, padding: 2000, }} />}
+              {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
           </View>
 
           {/* CONFIRM BTN */}
