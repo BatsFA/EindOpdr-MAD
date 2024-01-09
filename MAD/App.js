@@ -34,7 +34,6 @@ export default function App() {
     if (!meldingsoort) errors.meldingsoort = 'Soort melding niet ingevuld';
     if (!location) errors.location = 'locatie niet ingevuld';
     if (!name) errors.name = 'naam niet ingevuld';
-    if (!extrainfo) errors.extrainfo = 'Soort melding niet ingevuld';
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -95,7 +94,7 @@ export default function App() {
             title='Selecteer foto'
             color='#000000'
             onPress={pickImage} />
-              {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
+              {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, padding: 2000, }} />}
           </View>
 
           {/* CONFIRM BTN */}
