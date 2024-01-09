@@ -7,26 +7,6 @@ import * as Location from 'expo-location';
 // Main Code
 // Content section
 export default function App() {
-  // Location req 
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  useEffect(() => {
-    (async () => {
-      let {status} = await Location.requestBackgroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Acces permission for locatoin denied');
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
-  }, []);
-  let text = 'Wating...';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
   // IMAGE CONST.
   const [image, setImage] = useState(null);
   const pickImage = async () => {
