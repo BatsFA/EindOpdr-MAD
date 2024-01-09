@@ -2,10 +2,31 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Pressable, Image, textLog, Button, TextInput, KeyboardAvoidingView, Platform, Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 
 // Main Code
 // Content section
 export default function App() {
+  // Location req 
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  useEffect(() => {
+    (async () => {
+      let {status} = await Location.requestBackgroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Acces permission for locatoin denied');
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+  let text = 'Wating...';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
   // IMAGE CONST.
   const [image, setImage] = useState(null);
   const pickImage = async () => {
@@ -24,10 +45,8 @@ export default function App() {
     }
   }
   const [meldingsoort, setMeldingsoort] = useState('');
-  const [location, setLocation] = useState('');
   const [name, setName] = useState('');
   const [extrainfo, setExtrainfo] = useState('');
-
   const [errors, setErrors] = useState({});
   const formvalidation = () => {
     let errors = {};
